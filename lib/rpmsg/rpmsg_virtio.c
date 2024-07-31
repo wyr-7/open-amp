@@ -390,11 +390,9 @@ static void *rpmsg_virtio_get_tx_payload_buffer(struct rpmsg_device *rdev,
 		 * use metal_sleep_usec() method by default.
 		 */
 		status = rpmsg_virtio_notify_wait(rvdev, rvdev->rvq);
-		if (status == RPMSG_EOPNOTSUPP) {
+		if (status != RPMSG_SUCCESS) {
 			metal_sleep_usec(RPMSG_TICKS_PER_INTERVAL);
 			tick_count--;
-		} else if (status == RPMSG_SUCCESS) {
-			break;
 		}
 	}
 
